@@ -36,23 +36,23 @@ Adding these numbers together, we should have our annual TCO, the basis for our 
 
 ## Total Annual Cost Model
 
-The next step is to break down our TCO to chargeable items. In Tableau Server word, usually we chargeback three elements:
+The next step is to break down our TCO to chargeable items. In the Tableau Server world, usually we chargeback three elements:
 
-* **Interaction expense**: expense occurred when end users are viewing visualizations, publishing contents or interacting with AskData or Metrics. Interacting with the server considered as CPU intensive task: every click on a dashboard calculates the load on the server. We consider vizqlserver and their child processes (hyper, data server) as interactive CPU consumption.
-* **Batch expense:** expense occurs when running background jobs including extracts, subscriptions or askdata indexing. Background costs can be calculated on the number of seconds a job occupies a backgrounder process or per CPU hour. Backgrounders are single-threaded applications, meaning that you cannot run more background jobs in parallel than the number of backgrounders deployed on the system. In our system we calculate Backgrounder CPU hour.
-* **Storage expense:** expense related to store users contents.
+* **Interaction expense**: expense occurred when end users are viewing visualizations, publishing contents or interacting with AskData or Metrics. Interacting with the server is considered a CPU intensive task: every click on a dashboard calculates the load on the server. We consider vizqlserver and their child processes (hyper, data server) as interactive CPU consumption.
+* **Batch expense:** expense occured when running background jobs including extracts, subscriptions or AskData indexing. Background costs can be calculated on the number of seconds a job occupies a backgrounder process or per CPU hour. Backgrounders are single-threaded applications, meaning that you cannot run more background jobs in parallel than the number of backgrounders deployed on the system. In our system we calculate Backgrounder CPU hour.
+* **Storage expense:** expense related to storing user content.
 
 
 
 In the next section, we will use the following abbreviations to explain these expenses and their rates:
 
-**Interaction cores (I)** Number of cores dedicated or _assumed_ to interaction
+**Interaction cores (I)** Number of cores dedicated to or _assumed_ for interaction
 
-**Backgrounder cores (E)** Number of cores dedicated or _assumed_ for batch processing
+**Backgrounder cores (E)** Number of cores dedicated to or _assumed_ for batch processing
 
 **Administration cores (A)** In the pre-`tsm`  era Tableau did not require CPU licenses for those administration nodes, where no vizql servers were running. In case of the system has workers configured without vizql nodes, these servers and their cores are assumed as administration cores.
 
-**Storage volume:** Number of GB available for workbooks and data source files
+**Storage volume:** Number of GB-s available for workbooks and data source files
 
 **Annual Storage Expense:** Expense attributed to providing storage for workbooks and data source files
 
@@ -84,7 +84,7 @@ The suggested Storage GB Day rate (what is the cost to store one GB day for one 
 
 To calculate Interactive and Batch expenses, we need to understand their total cost. To do this, we should understand how many CPU cores are allocated to each task (Batch and Interactive). In case the backgrounder servers are separated to dedicated workers, the calculation is fairly easy: 
 
-* we know precisely what are the average utilization on the servers,
+* we know precisely what is the average utilization on the servers,
 * we know the total cost of the Batch/Extraction expense
 * we know that we need to charge for time used for these backgrounder cores as one backgrounder job occupies one backgrounder process running on one CPU core
 
@@ -98,9 +98,9 @@ the calculation for Interaction and Extraction expenses are:
 
 **Interaction Expense ($IE$)** equals to  $\frac{I} {(I+E+A)} \times (TAE-SE)  $ , where $\frac{I}{(I+E+A)}$ stands for CPU ratio for interaction processes. Please note that we subtract the storage expense $SE$ from $IE$, as storage was calculated previously with a different method.
 
-Similarly, the **Batch or Extraction Expense ($EE$)** is $\frac{E} {(I+E+A)} \times (TAE-SE)$.  In case we have **admin expense ($AE$)**, - meaning that we have workers that does not participate either in batch or interactive loads - the formula is $\frac{A} {(I+E+A)} \times (TAE-SE)$.
+Similarly, the **Batch or Extraction Expense ($EE$)** is $\frac{E} {(I+E+A)} \times (TAE-SE)$.  In case we have **admin expense ($AE$)**, - meaning that we have workers that do not participate either in batch or interactive loads - the formula is $\frac{A} {(I+E+A)} \times (TAE-SE)$.
 
-Using these formulas, we have the following annual expenses for the above-specified infrastructure:
+Using these formulae, we have the following annual expenses for the above-specified infrastructure:
 
 
 
@@ -112,7 +112,7 @@ Using these numbers, we can easily assign rates to our unit of measures. **One I
 
 ### Mixed Mode - No Backgrounder Segregation 
 
-In case when there are no dedicated workers for backgrounders, we should estimate the CPU consumption ratio between backgrounder and interactive sessions. 
+In case there are no dedicated workers for backgrounders, we should estimate the CPU consumption ratio between backgrounder and interactive sessions. 
 
 Considering the following CPU breakdown, where `vizqlserver` used 682 hours of CPU time and `backgrounder` used 426 hours with total of on 80 worker cores, the number of interactive CPUs are: $80 \times \frac {682} {682 +426} \approx  49.24$ cores, while the number of backgrounder CPU cores are:  $80 \times \frac {426} {682 +426} \approx  30.75$.
 

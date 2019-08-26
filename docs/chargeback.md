@@ -78,7 +78,7 @@ Considering the following infrastructure costs and utilization:
 
 The suggested Storage GB Day rate (what is the cost to store one GB day for one day) calculates to $0.08.
 
-![image-20190826090958141](/Users/tfoldi/Library/Application Support/typora-user-images/image-20190826090958141.png)
+![image-20190826090958141](image-20190826090958141.png)
 
 ### Calculating Interaction and Batch Expenses
 

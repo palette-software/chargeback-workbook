@@ -1,6 +1,6 @@
 # Building initial Chargeback models for Tableau Server
 
-In a modern enterprise, central infrastructure-related costs are managed by platform teams and _charged_ to functional teams using the infrastructure components. To have a fair _chareback model_, platform teams (PT) must calculate their TCO (total cost of ownership) along with the system usage by the individual teams.
+In a modern enterprise, central infrastructure-related costs are managed by platform teams and _charged_ to functional teams using the infrastructure components. To have a fair _chargeback model_, platform teams (PT) must calculate their TCO (total cost of ownership) along with the system usage by the individual teams.
 
 In this document, we will explain how to calculate the first version of the chargeback model, which could be a basis for further versions, tailored to the specific organization's needs. 
 
